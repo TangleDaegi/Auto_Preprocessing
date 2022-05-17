@@ -8,28 +8,24 @@ root.title("Auto Preprocessing")
 root.geometry("600x720") #가로*세로 + (x좌표 + y 좌표)
 root.resizable(False, False) #x(너비), y(높이) 값 변경 불가 (창 크기 변경불가)
 
-dataPath, file_list = get_datalist()
-combobox = ttk.Combobox(root, height = 5, width=60, values = file_list)
-combobox.current(0)
-combobox.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-global data_name, data, df
+wrapper = LabelFrame(root, text="데이터 확인")
+wrapper.grid(row = 0, column = 0, padx = 5, pady = 5)
+
+dataPath, file_list = get_datalist()
+combobox = ttk.Combobox(wrapper, height = 5, width=60, values = file_list)
+combobox.current(0)
+combobox.grid(row = 0, column = 0, padx = 5, pady = 5)
+
 
 def selectData():
+    global data_name, data, df
     data_name = combobox.get()
     data = pd.read_csv(data_name)
     df = pd.DataFrame(data)
     cols = list(df.columns)
-    return df
-btn_selectData = Button(root, text = "Select", command = selectData)
+btn_selectData = Button(wrapper, text = "Select", command = selectData)
 btn_selectData.grid(row = 0, column = 1, padx = 5, pady = 5)
-
-def printData():
-    print(df)
-
-btn_print = Button(root, text = "TEST", command = printData)
-btn_print.grid(row = 2, column = 2, padx = 5, pady = 5)
-
 
 def view():
     tableView = Tk()
@@ -40,25 +36,98 @@ def view():
     for i in cols:
         tree.column(i, anchor="w")
         tree.heading(i, text=i, anchor='w')
-
     for index, row in df.iterrows():
         tree.insert("",0,text=index,values=list(row))
-btn_view = Button(root, text = "View", command = view)
+btn_view = Button(wrapper, text = "View", command = view)
 btn_view.grid(row = 0, column = 2, padx = 5, pady = 5)
 
 def viewdetails():
     pass
-btn_viewdetails = Button(root, text = "Viewdetails", command = viewdetails)
-btn_viewdetails.grid(row = 2, column = 1, padx = 5, pady = 5)
+btn_viewdetails = Button(wrapper, text = "Viewdetails", command = viewdetails)
+btn_viewdetails.grid(row = 1, column = 1, padx = 5, pady = 5)
+
+wrapper2 = LabelFrame(root, text="데이터 처리")
+wrapper2.grid(row = 1, column = 0,padx = 5, pady = 5)
 
 
-e = Entry(root, width=30)
-e.grid(row = 3, column = 0, padx = 5, pady = 5)
+
+class CleaningBox():
+    def __init__(self):
+        window =  Tk()
+
+        amount_missing = StringVar()
+        check_drop = IntVar()
+
+        wrapper = LabelFrame(window, text="Select Column")
+        wrapper.pack(padx = 10, pady = 5, fill = "both", expand= "yes")
+        wrapper2 = LabelFrame(window, text="Select Options")
+        wrapper2.pack(padx = 10, pady = 10, fill = "both", expand= "yes")
+
+        cols = ["column 1", "column 2", "column 3"]
+        options = ["Drop Check", "Column Name", "Data Type", "Number of Missing",  "Handle Missing Values"]
+        
+        label1 = Label(wrapper, text = "Column")
+        label1.grid(row=0, column=0, padx = 10, pady = 10)
+        
+        mycombo = ttk.Combobox(wrapper, height = 15, values = cols, width=30)
+        mycombo.current(0)
+        mycombo.grid(row = 0, column = 1)
+
+        lbl1 = Label(wrapper2, text = "Data Type")
+        lbl1.grid(row=0, column=0, padx = 10, pady=10)
+        datatypes = ["Numeric", "Categorical", "Datetime"]
+        combo1 = ttk.Combobox(wrapper2, height = 15, values = datatypes, width = 30)
+        combo1.grid(row=0, column=1, padx=10, pady=10)
+
+        lbl2 = Label(wrapper2, text = "# of Missing Values :")
+        lblMissingValues = Label(wrapper2, text = amount_missing)
+        lbl2.grid(row=1, column=0, padx = 10, pady=10)
+        lblMissingValues.grid(row=1, column=1, padx = 10, pady=10)
+
+        lbl3 = Label(wrapper2, text = "Handle Missing Values")
+        lbl3.grid(row=2, column=0, padx = 10, pady=10)
+
+        handleMissingVals = ["Replacing With Mean", "Replacing With Median", "Others..."]
+        combo2 = ttk.Combobox(wrapper2, values = handleMissingVals, height = 15,  width = 30)
+        combo2.grid(row=2, column=1, padx=10, pady = 10)
+
+        lbl4 = Label(wrapper2, text = "Drop Check")
+        lbl4.grid(row=3, column=0, padx = 10, pady=10)
+
+        checkBox1 = Checkbutton(wrapper2, variable=check_drop)
+        checkBox1.grid(row=3, column=1, padx = 10, pady=10)
+
+        window.title("CleaningBox")
+        window.geometry("720x300")
+        window.resizable(False, False)
+        window.mainloop()
+
+        
+
+
+
+def btn_data_cleaning():
+    c_box = CleaningBox()
+
+btn_select_cleaning = Button(wrapper2, text = "데이터 정제", command = btn_data_cleaning)
+btn_select_cleaning.grid(row = 0, column = 0, padx = 5, pady = 5)
+def btn_data_transformation():
+    pass
+btn_select_transformation = Button(wrapper2, text = "데이터 변환", command = btn_data_transformation)
+btn_select_transformation.grid(row = 0, column = 1, padx = 5, pady = 5)
+
+
+
+wrapper3 = LabelFrame(root, text="데이터 저장")
+wrapper3.grid(row = 2, column = 0,padx = 5, pady = 5)
+
+e = Entry(wrapper3, width=30)
+e.grid(row = 0, column = 0, padx = 5, pady = 5)
 e.insert(0, "파일명을 입력하세요")
 def save():
     print(e.get())
-btn = Button(root, text="Save", command=save)
-btn.grid(row = 3, column = 1, padx = 5, pady = 5)
+btn = Button(wrapper3, text="Save", command=save)
+btn.grid(row = 0, column = 1, padx = 5, pady = 5)
 
 '''
 def ToDataclean():    
