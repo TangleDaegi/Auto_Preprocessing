@@ -27,6 +27,10 @@ def selectData():
 btn_selectData = Button(wrapper, text = "Select", command = selectData)
 btn_selectData.grid(row = 0, column = 1, padx = 5, pady = 5)
 
+    return df
+btn_selectData = Button(root, text = "Select", command = selectData)
+btn_selectData.grid(row = 0, column = 1, padx = 5, pady = 5)
+
 def view():
     tableView = Tk()
     tree = ttk.Treeview(tableView)
@@ -49,6 +53,13 @@ btn_viewdetails.grid(row = 1, column = 1, padx = 5, pady = 5)
 wrapper2 = LabelFrame(root, text="데이터 처리")
 wrapper2.grid(row = 1, column = 0,padx = 5, pady = 5)
 
+e = Entry(root, width=30)
+e.grid(row = 3, column = 0, padx = 5, pady = 5)
+e.insert(0, "파일명을 입력하세요")
+def save():
+    print(e.get())
+btn = Button(root, text="Save", command=save)
+btn.grid(row = 3, column = 1, padx = 5, pady = 5)
 
 
 class CleaningBox():
@@ -218,7 +229,6 @@ def ToDataclean():
     global my_method
     combobox_clean_category = ttk.Combobox(root, height=5, values=category_1)
     combobox_clean_category.pack()
-
     def category_clean_select() :
         my_category = combobox_clean_category.get()
         print(my_category)
@@ -236,8 +246,6 @@ def ToDataclean():
         combobox_clean_method.pack()
         method_btn_1 = Button(root, text = "Select" )#, command = 결측치 처리 함수 연결)
         method_btn_1.pack()
-
-
     def method_noisy_value_select():
         combobox_clean_method = ttk.Combobox(root, height=5, values=method_2)
         combobox_clean_category.destroy()
@@ -245,33 +253,20 @@ def ToDataclean():
         combobox_clean_method.pack()
         method_btn_2 = Button(root, text = "Select") #, command = 이상치 처리 함수 연결)
         method_btn_2.pack()
-
-
     
     category_btn = Button(root, text = "Select", command = category_clean_select)
     category_btn.pack()
     
-
 def ToDataintergration() :
-
     nextbtn = Button(root, text = "Next", command = ToDataReduction)
     print("ToDataintergration")
     
-
 def ToDataReduction():
-
     nextbtn = Button(root, text = "Next", command = ToDatatransformation)
     print("ToDataReduction")
-
 def ToDatatransformation():
-
     nextbtn = Button(root, text = "Next", command = ToDataintergration)
     print("ToDatatransformation")
-
-
-
-
-
 def show_table(data):
         global df
         print(data_name)
