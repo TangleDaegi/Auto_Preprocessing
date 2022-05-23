@@ -7,7 +7,7 @@ from main_frame import *
 from function_Transformation import *
 
 class TransformationBox():
-    def __init__(self):
+    def __init__(self, df):
         window =  Tk()
 
         amount_missing = StringVar()
@@ -60,7 +60,7 @@ class TransformationBox():
         btn_selectData.grid(row = 0, column = 2, padx = 5, pady = 5)
         def trans():
             if(transformation_method=="StandardScaler"):
-                StandardScaler(df, transformation_method)
+                StandardScaler(df, select_trans_column)
                 print(df)
         btn_selectData = Button(wrapper2, text = "변환", command = trans)
         btn_selectData.grid(row = 1, column = 6, padx = 5, pady = 5)
