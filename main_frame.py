@@ -33,6 +33,7 @@ btn_selectData.grid(row = 0, column = 1, padx = 5, pady = 5)
 
 def view():
     tableView = Tk()
+    tableView.title("Data Head")
     tree = ttk.Treeview(tableView)
     tree.pack()
     cols = list(df.columns)
@@ -40,8 +41,9 @@ def view():
     for i in cols:
         tree.column(i, anchor="w")
         tree.heading(i, text=i, anchor='w')
-    for index, row in df.iterrows():
+    for index, row in df[:5].iterrows():
         tree.insert("",0,text=index,values=list(row))
+        
 btn_view = Button(wrapper, text = "View", command = view)
 btn_view.grid(row = 0, column = 2, padx = 5, pady = 5)
 
