@@ -3,6 +3,8 @@ import tkinter.ttk as ttk
 from unicodedata import category
 from read_csv import *
 import pandas as pd
+from main_frame import *
+from function_Transformation import *
 
 class TransformationBox():
     def __init__(self):
@@ -41,11 +43,11 @@ class TransformationBox():
         btn_selectData = Button(wrapper, text = "Select", command = selectData)
         btn_selectData.grid(row = 0, column = 2, padx = 5, pady = 5)
 
-        cols = ["column 1", "column 2", "column 3"]
+        cols_trans = list(df.columns)
         label2 = Label(wrapper2, text = "Column :")
         label2.grid(row=0, column=0, padx = 10, pady = 10)
         
-        mycombo2 = ttk.Combobox(wrapper2, height = 15, values = cols, width=30)
+        mycombo2 = ttk.Combobox(wrapper2, height = 15, values = cols_trans, width=30)
         mycombo2.current(0)
         mycombo2.grid(row = 0, column = 1)
 
@@ -57,7 +59,9 @@ class TransformationBox():
         btn_selectData = Button(wrapper2, text = "Select", command = selectcolumn)
         btn_selectData.grid(row = 0, column = 2, padx = 5, pady = 5)
         def trans():
-            pass #스케일링 내부함수 실행
+            if(transformation_method=="StandardScaler"):
+                StandardScaler(df, transformation_method)
+                print(df)
         btn_selectData = Button(wrapper2, text = "변환", command = trans)
         btn_selectData.grid(row = 1, column = 6, padx = 5, pady = 5)
         
