@@ -1,22 +1,27 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+from numpy import NaN
 import pandas as pd
 from function_Cleaning import * 
 from class_mainFrame import *
 
 
-class CleaningBox(mainFrame):
+class CleaningBox():
     def __init__(self, root):
+        df = root.getData()
         window =  tk.Tk()
         self.options = {}
         amount_missing = tk.StringVar()
-        check_drop = tk.IntVar()
-        cols = list(root.getData().columns)
+        cols = ["Column Not Selected "] + list(df.columns)
+        for c in cols:
+            self.options[c] = ['Default', 'Do Nothing', 1]
+
 
         wrapper = tk.LabelFrame(window, text="Select Column")
         wrapper.pack(padx = 10, pady = 5, fill = "both", expand= "yes")
         wrapper2 = tk.LabelFrame(window, text="Select Options")
         wrapper2.pack(padx = 10, pady = 10, fill = "both", expand= "yes")
+
 
         label1 = tk.Label(wrapper, text = "Column")
         label1.grid(row=0, column=0, padx = 10, pady = 10)
@@ -29,10 +34,13 @@ class CleaningBox(mainFrame):
             colName = mycombo.get()
             amount_missing = df[colName].isnull().sum(axis=0)
             lblMissingValues.configure(text = amount_missing)
+            combo1.current(0)
+            combo2.current(0)
+            combo3.current(0)
 
         def colOptions():
             colName = mycombo.get()
-            self.options[colName] = [combo1.get(), combo2.get(), check_drop.get()]
+            self.options[colName] = [combo1.get(), combo2.get(), combo3.get()]
             print(self.options[colName])
 
         btnSelectCol = tk.Button(wrapper, text="Select", command=lookupColumn)
@@ -67,12 +75,15 @@ class CleaningBox(mainFrame):
         lbl4 = tk.Label(wrapper2, text = "Drop Check")
         lbl4.grid(row=3, column=0, padx = 10, pady=10)
 
-        checkBox1 = tk.Checkbutton(wrapper2, variable=check_drop, onvalue=1, offvalue=0)
-        checkBox1.grid(row=3, column=1, padx = 10, pady=10)
+        dropVals = ["Do Nothing", "Drop This Column"]
+        combo3 = ttk.Combobox(wrapper2, values=dropVals, height = 15, width = 30)    
+        combo3.current(0)    
+        combo3.grid(row=3, column=1, padx = 10, pady=10)
 
         def processOption():
-
-            window.distroy()
+            data = self.cleanData(df, self.options)
+            root.modifyData(data)
+            print(data)
             pass
         btnOK = tk.Button(window, text = "OK", command= processOption)
         #btnOK.grid(column= 4, row = 5, padx = 10, pady = 10)
@@ -86,20 +97,16 @@ class CleaningBox(mainFrame):
     def cleanData(self, df, options):
         columnList = []
         for c in df.columns:
-            if options[c][2] == 0:
+            if options[c][2] == "Drop This Column":
                 pass
             else:
                 columnList.append(c)
-                modType(df[c], options[0])
-                handleMissingVal(df[c], options[1])
-
+                df[c] = modType(df[c], options[c][0])
+                handleMissingVal(df[c], options[c][1])
+        print(df)
         data = df[columnList]
-        mainFrame.modifyData(data)
-
-
-
-data = [[82, 10],[86, 8],[90, 13]]
-df = pd.DataFrame(data, columns = ['year', 'backNum'])
-cBox = CleaningBox(df)
+        print(columnList)
+        return data
+        #root.modifyData(data)
 
 #mainframe의 df를 변경하는 함수를 만들어서 OK버튼의 command 함수에 넣으면 될듯?

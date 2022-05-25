@@ -1,4 +1,6 @@
 from CleaningBox import *
+from TransBox import *
+from TransBox import TransBox
 from function_mainFrame import *
 from read_csv import get_datalist
 import tkinter as tk
@@ -47,13 +49,13 @@ class mainFrame():
 
 
         def btn_data_cleaning():
-            #CleaningBox(self.data)
+            cbox = CleaningBox(self)
             pass
         btn_select_cleaning = tk.Button(wrapper2, text = "데이터 정제", command = btn_data_cleaning)
         btn_select_cleaning.grid(row = 0, column = 0, padx = 5, pady = 5)
 
         def btn_data_Transformation():
-            #CleaningBox(self.data)
+            tBox = TransBox(self)
             pass
         btn_select_cleaning = tk.Button(wrapper2, text = "데이터 변환", command = btn_data_Transformation)
         btn_select_cleaning.grid(row = 0, column = 1, padx = 5, pady = 5)
@@ -89,4 +91,3 @@ class mainFrame():
     def getData(self):
         return self.data
 
-mainFrame()
