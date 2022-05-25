@@ -1,11 +1,6 @@
 from CleaningBox import *
-<<<<<<< HEAD
 from TransBox import *
-from TransBox import TransBox
-=======
->>>>>>> 38c1ef9aa8450b422b09d563c15b08a980567d81
 from function_mainFrame import *
-from read_csv import get_datalist
 import tkinter as tk
 import tkinter.ttk as ttk
 import pandas as pd
@@ -16,11 +11,7 @@ class mainFrame():
     def __init__(self):
         self.dataPath, self.dataList = get_datalist()
         self.data = None
-<<<<<<< HEAD
-
-=======
         self.dataName = ""
->>>>>>> 38c1ef9aa8450b422b09d563c15b08a980567d81
 
         root = tk.Tk()
         root.title("Auto Preprocessing")
@@ -36,11 +27,8 @@ class mainFrame():
 
         def selectData():
             data_name = combobox.get()
-<<<<<<< HEAD
-=======
             self.dataName = list(data_name.split("."))[0]
             e.insert(0, self.dataName + "_processed.csv")
->>>>>>> 38c1ef9aa8450b422b09d563c15b08a980567d81
             data = pd.read_csv(data_name)
             df = pd.DataFrame(data)
             self.data = df
@@ -67,10 +55,7 @@ class mainFrame():
         btn_select_cleaning.grid(row = 0, column = 0, padx = 5, pady = 5)
 
         def btn_data_Transformation():
-<<<<<<< HEAD
-            tBox = TransBox(self)
-=======
->>>>>>> 38c1ef9aa8450b422b09d563c15b08a980567d81
+            tbox = TransBox(self)
             pass
         btn_select_cleaning = tk.Button(wrapper2, text = "데이터 변환", command = btn_data_Transformation)
         btn_select_cleaning.grid(row = 0, column = 1, padx = 5, pady = 5)
@@ -80,16 +65,10 @@ class mainFrame():
 
         e = tk.Entry(wrapper3, width=30)
         e.grid(row = 0, column = 0, padx = 5, pady = 5)
-<<<<<<< HEAD
-        e.insert(0, "파일명을 입력하세요")
-        def save():
-            print(e.get())
-=======
         
         def save():
             print(e.get())
             dataToCsv(self.data, self.dataPath, e.get())
->>>>>>> 38c1ef9aa8450b422b09d563c15b08a980567d81
         btn = tk.Button(wrapper3, text="Save", command=save)
         btn.grid(row = 0, column = 1, padx = 5, pady = 5)
 
@@ -112,4 +91,3 @@ class mainFrame():
             tree.insert("",0,text=index,values=list(row))
     def getData(self):
         return self.data
-
