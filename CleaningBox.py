@@ -16,7 +16,6 @@ class CleaningBox():
         for c in cols:
             self.options[c] = ['Default', 'Do Nothing', 1]
 
-
         wrapper = tk.LabelFrame(window, text="Select Column")
         wrapper.pack(padx = 10, pady = 5, fill = "both", expand= "yes")
         wrapper2 = tk.LabelFrame(window, text="Select Options")
@@ -90,7 +89,7 @@ class CleaningBox():
         btnOK.pack()
 
         window.title("CleaningBox")
-        window.geometry("720x330")
+        window.geometry("720x720")
         window.resizable(False, False)
         window.mainloop()
 
