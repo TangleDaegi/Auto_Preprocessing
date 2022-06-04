@@ -12,16 +12,13 @@ class ReductionBox():
         window =  tk.Tk()
         self.options = {}
         amount_missing = tk.StringVar()
-        cols = ["Column Not Selected "] + list(df.columns)
-        for c in cols:
-            self.options[c] = ['Default', 'Do Nothing', 1]
-
+        cols = ["Column Not Selected "] + list(filterNumeric(df).columns)
         wrapper = tk.LabelFrame(window, text="Select Column")
         wrapper.pack(padx = 10, pady = 5, fill = "both", expand= "yes")
         wrapper2 = tk.LabelFrame(window, text="Select Options")
         wrapper2.pack(padx = 10, pady = 10, fill = "both", expand= "yes")
 
-        label1 = tk.Label(wrapper, text = "Column")
+        label1 = tk.Label(wrapper, text = "Column   :")
         label1.grid(row=0, column=0, padx = 10, pady = 10)
         
         mycombo = ttk.Combobox(wrapper, height = 15, values = cols, width=30)
@@ -37,7 +34,7 @@ class ReductionBox():
 
         redction_method = ["데이터 범주화"]
 
-        label2 = tk.Label(wrapper, text = "축소 방법 :")
+        label2 = tk.Label(wrapper, text = "축소 방법   :")
         label2.grid(row=1, column=0, padx = 10, pady = 10)
         
         mycombo1 = ttk.Combobox(wrapper, height = 15, values = redction_method, width=30)
@@ -51,7 +48,7 @@ class ReductionBox():
         btn_selectmethod = tk.Button(wrapper, text = "Select", command = selectmethod_reduct)
         btn_selectmethod.grid(row = 1, column = 2, padx = 5, pady = 5)
 
-        lbl1 = tk.Label(wrapper2, text = "데이터 범주의 개수")
+        lbl1 = tk.Label(wrapper2, text = "데이터 범주의 개수   :")
         lbl1.grid(row=0, column=0, padx = 10, pady=10)
         entry1 = tk.Entry(wrapper2, text="개수를 입력하세요.")
         entry1.grid(row=0, column=1, padx = 10, pady=10)
@@ -62,7 +59,7 @@ class ReductionBox():
         btn_selectmethod1 = tk.Button(wrapper2, text = "Enter", command = divide_num_get)
         btn_selectmethod1.grid(row = 0, column = 2, padx = 5, pady = 5)     
 
-        lbl2 = tk.Label(wrapper2, text = "데이터 범주의 기준값")
+        lbl2 = tk.Label(wrapper2, text = "데이터 범주의 기준값   :")
         lbl2.grid(row=1, column=0, padx = 10, pady=10)
         entry2 = tk.Entry(wrapper2, text="기준값을 큰 순서대로 입력하세요.")
         entry2.grid(row=1, column=1, padx = 10, pady=10)
@@ -80,7 +77,7 @@ class ReductionBox():
         btn_selectmethod2 = tk.Button(wrapper2, text = "Enter", command = divide_point_get)
         btn_selectmethod2.grid(row = 1, column = 2, padx = 5, pady = 5)   
 
-        lbl3 = tk.Label(wrapper2, text = "데이터 범주의 이름")
+        lbl3 = tk.Label(wrapper2, text = "데이터 범주의 이름   :")
         lbl3.grid(row=2, column=0, padx = 10, pady=10)
         entry3 = tk.Entry(wrapper2, text="범주의 이름을 큰 순서대로 입력하세요.")
         entry3.grid(row=2, column=1, padx = 10, pady=10)
@@ -116,6 +113,6 @@ class ReductionBox():
             msgbox.showwarning("경고", "오류가 발생했습니다.")
 
         window.title("ReductionBox")
-        window.geometry("720x720")
+        window.geometry("640x400")
         window.resizable(False, False)
         window.mainloop()

@@ -270,27 +270,27 @@ class mainFrame():
         step_help_1 = tk.Label(wrapper, text="1.")
         step_help_11 = tk.Label(wrapper, text="Select 버튼을 통해 데이터를 선택한 후, View 버튼을 통해 원하는 데이터가 맞는지 확인합니다.")       
         step_help_1.grid(row = 0, column = 0, padx = 0, pady = 5)
-        step_help_11.grid(row = 0, column = 1, padx = 40, pady = 5, sticky="w")
+        step_help_11.grid(row = 0, column = 1, padx = 20, pady = 5, sticky="w")
        
         step_help_2 = tk.Label(wrapper, text="2.")
-        step_help_1.grid(row = 1, column = 0, padx = 0, pady = 5)
+        step_help_2.grid(row = 1, column = 0, padx = 0, pady = 5)
         step_help_22 = tk.Label(wrapper, text="View Details 버튼을 통해 데이터의 기본 통계값, 데이터의 분포, column의 정보등을 얻습니다.")
-        step_help_22.grid(row = 1, column = 1, padx = 40, pady = 5, sticky="w")
+        step_help_22.grid(row = 1, column = 1, padx = 20, pady = 5, sticky="w")
       
         step_help_clean_1 = tk.Label(wrapper1, text="1.")
         step_help_clean_1.grid(row = 0, column = 0, padx = 0, pady = 5)
         step_help_clean_11 = tk.Label(wrapper1, text="데이터 정제부분에서 결측치 처리, 이상치 처리, column의 자료형 통일등의 작업을 합니다.")
-        step_help_clean_11.grid(row = 0, column = 1, padx = 40, pady = 5, sticky="w")
+        step_help_clean_11.grid(row = 0, column = 1, padx = 20, pady = 5, sticky="w")
 
         step_help_clean_2 = tk.Label(wrapper1, text="2.")
-        step_help_clean_2.grid(row = 0, column = 0, padx = 0, pady = 5)
+        step_help_clean_2.grid(row = 1, column = 0, padx = 0, pady = 5)
         step_help_clean_22 = tk.Label(wrapper1, text="데이터 변환과 축소는 사용자의 필요에 따라 순서를 정할 수 있습니다.")
-        step_help_clean_22.grid(row = 0, column = 1, padx = 40, pady = 5, sticky="w")
+        step_help_clean_22.grid(row = 1, column = 1, padx = 20, pady = 5, sticky="w")
 
-        step_help_trans_1 = tk.Label(wrapper1, text="1.")
+        step_help_trans_1 = tk.Label(wrapper2, text="데이터 이산화")
         step_help_clean_1.grid(row = 0, column = 0, padx = 0, pady = 5)
-        step_help_clean_11 = tk.Label(wrapper1, text="데이터 정제부분에서 결측치 처리, 이상치 처리, column의 자료형 통일등의 작업을 합니다.")
-        step_help_clean_11.grid(row = 0, column = 1, padx = 40, pady = 5, sticky="w")
+        step_help_clean_11 = tk.Label(wrapper2, text="데이터를 ~~ 할때 사용합니다. ")
+        step_help_clean_11.grid(row = 0, column = 1, padx = 20, pady = 5, sticky="w")
      
     def getData(self):
         return self.data

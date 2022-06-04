@@ -22,3 +22,8 @@ def def_RobustScaler(df_input, column):
     scaler = RobustScaler()
     result = scaler.fit_transform(df_input[['{}'.format(column)]])
     return result
+
+def filterNumeric(df_input):
+    numerics = ['int16', 'int32', 'int64', 'float32', 'float64']
+    result = df_input.select_dtypes(include=numerics)
+    return result
